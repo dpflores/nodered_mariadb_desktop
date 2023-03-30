@@ -1,0 +1,55 @@
+version: '3.7'
+services:
+    nodered:
+      container_name: nodered
+      image: nodered/node-red
+      ports:
+        - "1880:1880"
+
+      environment:
+        TZ: America/Lima
+      volumes:
+        - "./nodered-data:/data"
+        
+      restart: "always"
+
+    #   privileged: true
+    #   network_mode: "host"       # Para utilizar el can (si no lo utilizamos lo podemos)
+
+    db:
+        container_name: mariadb
+        image: mariadb
+        volumes:
+            - ./mariadb-data:/var/lib/mysql
+        restart: always
+        ports:
+            - 3306:3306
+        environment:
+            TZ: America/Lima
+            MYSQL_DATABASE: db_mysql
+            MYSQL_USER: db_user
+            MYSQL_PASSWORD_FILE: /run/secrets/db_password
+            MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
+            SERVICE_TAGS: dev
+            SERVICE_NAME: mysql
+        secrets:
+        - db_password
+        - db_root_password
+
+    phpmyadmin:
+      image: phpmyadmin
+      restart: always
+      ports:
+        - 8080:80
+      environment:
+        - PMA_HOST=db
+        #- PMA_ARBITRARY=1
+      depends_on:
+        - db
+
+secrets:
+  db_password:
+    file: ./secrets/db_password.txt
+  db_root_password:
+    file: ./secrets/db_root_password.txt
+
