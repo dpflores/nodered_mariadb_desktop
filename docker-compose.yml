@@ -13,8 +13,7 @@ services:
         
       restart: "always"
 
-    #   privileged: true
-    #   network_mode: "host"       # Para utilizar el can (si no lo utilizamos lo podemos)
+    
 
     db:
         # container_name: mariadb
