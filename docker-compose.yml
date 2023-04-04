@@ -1,7 +1,7 @@
 version: '3.7'
 services:
     nodered:
-      container_name: nodered
+      # container_name: nodered
       image: nodered/node-red
       ports:
         - "1880:1880"
@@ -17,7 +17,7 @@ services:
     #   network_mode: "host"       # Para utilizar el can (si no lo utilizamos lo podemos)
 
     db:
-        container_name: mariadb
+        # container_name: mariadb
         image: mariadb
         volumes:
             - ./mariadb-data:/var/lib/mysql
@@ -36,16 +36,16 @@ services:
         - db_password
         - db_root_password
 
-    phpmyadmin:
-      image: phpmyadmin
-      restart: always
-      ports:
-        - 8080:80
-      environment:
-        - PMA_HOST=db
-        #- PMA_ARBITRARY=1
-      depends_on:
-        - db
+    # phpmyadmin:
+    #   image: phpmyadmin
+    #   restart: always
+    #   ports:
+    #     - 8080:80
+    #   environment:
+    #     - PMA_HOST=db
+    #     #- PMA_ARBITRARY=1
+    #   depends_on:
+    #     - db
 
 secrets:
   db_password:
