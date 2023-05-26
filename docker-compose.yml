@@ -1,17 +1,17 @@
 version: '3.7'
 services:
-    nodered:
-      # container_name: nodered
-      image: nodered/node-red
-      ports:
-        - "1880:1880"
+#     nodered:
+#       # container_name: nodered
+#       image: nodered/node-red
+#       ports:
+#         - "1880:1880"
 
-      environment:
-        TZ: America/Lima
-      volumes:
-        - "./nodered-data:/data"
+#       environment:
+#         TZ: America/Lima
+#       volumes:
+#         - "./nodered-data:/data"
         
-      restart: "always"
+#       restart: "always"
 
     
 
@@ -35,16 +35,16 @@ services:
         - db_password
         - db_root_password
 
-    # phpmyadmin:
-    #   image: phpmyadmin
-    #   restart: always
-    #   ports:
-    #     - 8080:80
-    #   environment:
-    #     - PMA_HOST=db
-    #     #- PMA_ARBITRARY=1
-    #   depends_on:
-    #     - db
+    phpmyadmin:
+      image: phpmyadmin
+      restart: always
+      ports:
+        - 8080:80
+      environment:
+        - PMA_HOST=db
+        #- PMA_ARBITRARY=1
+      depends_on:
+        - db
 
 secrets:
   db_password:
