@@ -22,7 +22,7 @@ services:
             - ./mariadb-data:/var/lib/mysql
         restart: always
         ports:
-            - 3306:3306
+            - 3307:3306
         environment:
             TZ: America/Lima
             MYSQL_DATABASE: db_mysql
@@ -43,8 +43,8 @@ services:
       environment:
         - PMA_HOST=db
         #- PMA_ARBITRARY=1
-      depends_on:
-        - db
+#       depends_on:
+#         - db
 
 secrets:
   db_password:
